@@ -7,7 +7,7 @@ from lfsr import *
 
 
 def step(name):
-    n = (78 - len(name)) / 2
+    n = (78 - len(name)) // 2
     print("\n" + n*"#" + " " + name + " " + n*"#" + "\n")
 
 def bytes_to_bin(bytedata):
@@ -30,11 +30,11 @@ def test():
     print("LFSR init       :", str(poly1), "(" + seed1 + ")")
 
     bitstream = "".join([chr(poly1.next_byte()) for _ in range(len(cleartext))])
-    print("LFSR stream     :", bitstream.encode("hex"))
+    print("LFSR stream     :", bitstream.encode().hex())
 
     ciphertext = xor(cleartext, bitstream)
 
-    print("Ciphertext      :", ciphertext.encode("hex"))
+    print("Ciphertext      :", ciphertext.encode().hex())
 
     step("Decryption")
 
@@ -42,7 +42,7 @@ def test():
     print("Known cleartext :", known_cleartext)
 
     bitstream = xor(known_cleartext, ciphertext[:len(known_cleartext)])
-    print("Stream start    : " + bitstream.encode("hex"))
+    print("Stream start    : " + bitstream.encode().hex())
 
     bm = BerlekampMassey(bytes_to_bin(bitstream))
 
@@ -51,7 +51,7 @@ def test():
     poly2 = LFSR(bm.get_polynomial(), bytes_to_bin(bitstream)[:bm.get_polynomial_degree()])
 
     bitstream = "".join([chr(poly2.next_byte()) for _ in range(len(cleartext))])
-    print("LFSR stream     :", bitstream.encode("hex"))
+    print("LFSR stream     :", bitstream.encode().hex())
 
     decrypted = xor(ciphertext, bitstream)
     print("\nDecrypted       :", decrypted)

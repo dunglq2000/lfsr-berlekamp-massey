@@ -1,7 +1,7 @@
 class BerlekampMassey:
     def __init__(self, sequence):
         n = len(sequence)
-        s = map(int, sequence)
+        s = list(map(int, sequence))
 
         k = 0
         for k in range(n):
