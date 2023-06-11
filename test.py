@@ -62,7 +62,5 @@ def test():
 
 
 if __name__ == '__main__':
-    print()
-    print("TEST - LFSR & Berlekamp-Massey")
-
-    test()
+    lfsr = BerlekampMassey(list(map(int, "11110010")))
+    print(str(lfsr))
